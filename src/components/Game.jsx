@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const Game = () => {
   const [boxCount, setBoxCount] = useState(50); // Jumlah kotak dalam satu baris/kolom
-  const containerSize = 600; // Ukuran kontainer
+  const [containerSize, setContainerSize] = useState(600); // Ukuran kontainer
   const boxSize = containerSize / boxCount; // Ukuran setiap kotak
   const [gameId, setGameId] = useState();
   const speed = 200;
@@ -13,16 +13,18 @@ const Game = () => {
   ); // Gunakan useRef untuk menyimpan layout
 
   useEffect(() => {
-    // Fungsi untuk mengupdate boxCount berdasarkan lebar jendela
+    // Fungsi untuk mengupdate boxCount dan containerSize berdasarkan lebar jendela
     const handleResize = () => {
       if (window.innerWidth < 600) {
         setBoxCount(20); // Set boxCount untuk mobile
+        setContainerSize(300); // Set containerSize untuk mobile
       } else {
         setBoxCount(50); // Set boxCount untuk desktop
+        setContainerSize(600); // Set containerSize untuk desktop
       }
     };
 
-    handleResize(); // Set awal boxCount berdasarkan ukuran jendela
+    handleResize(); // Set awal boxCount dan containerSize berdasarkan ukuran jendela
     window.addEventListener("resize", handleResize); // Tambahkan event listener untuk resize
 
     return () => {
